@@ -5,19 +5,20 @@ from datetime import datetime
 import io
 from avro import schema, io as avro_io
 import sys
+from typing import Dict, Any, List
 
-puerto_broker_argv = sys.argv
+puerto_broker_argv: List[str] = sys.argv
 # Configuración del consumidor
-host = '127.0.0.1'  # Dirección IP del broker (localhost)
+host: str = '127.0.0.1'  # Dirección IP del broker (localhost)
 print("Puerto: " + puerto_broker_argv[1])
-puerto_broker = int(puerto_broker_argv[1])  # Puerto del broker
+puerto_broker: int = int(puerto_broker_argv[1])  # Puerto del broker
 
-consumidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+consumidor: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 consumidor.connect((host, puerto_broker))
 print(f"Conectado al broker en {host}:{puerto_broker} como consumidor")
 
 # Definir el esquema Avro para la clase Message
-schema_str = """
+schema_str: str = """
 {
   "type": "record",
   "name": "Message",
@@ -31,10 +32,10 @@ schema_str = """
 """
 
 # Crear un objeto schema Avro
-avro_schema = schema.Parse(schema_str)
+avro_schema: schema.Schema = schema.Parse(schema_str)
 
 # Función para deserializar el mensaje Avro
-def deserializar_mensaje_avro(msg):
+def deserializar_mensaje_avro(msg: bytes) -> Dict[str, Any]:
     """
     Función para deserializar un mensaje Avro.
 
@@ -44,10 +45,10 @@ def deserializar_mensaje_avro(msg):
     Returns:
     dict: Mensaje deserializado.
     """
-    reader = avro_io.DatumReader(avro_schema)
-    bytes_reader = io.BytesIO(msg)
-    decoder = avro_io.BinaryDecoder(bytes_reader)
-    deserialized_msg = reader.read(decoder)
+    reader: avro_io.DatumReader = avro_io.DatumReader(avro_schema)
+    bytes_reader: io.BytesIO = io.BytesIO(msg)
+    decoder: avro_io.BinaryDecoder = avro_io.BinaryDecoder(bytes_reader)
+    deserialized_msg: Dict[str, Any] = reader.read(decoder)
     return deserialized_msg
 
 # Consumir mensajes
@@ -58,7 +59,7 @@ with open('../output/outputConsumidor.txt', 'w') as archivo:
           consumidor.send(str('0').encode())
           
           # Esperar respuesta del broker
-          msg = consumidor.recv(1024)
+          msg: bytes = consumidor.recv(1024)
           if not msg:
               break
 
@@ -67,19 +68,19 @@ with open('../output/outputConsumidor.txt', 'w') as archivo:
           # print("Se envía status ocupado a Broker")
 
           # Deserializar el mensaje Avro
-          deserialized_msg = deserializar_mensaje_avro(msg)
+          deserialized_msg: Dict[str, Any] = deserializar_mensaje_avro(msg)
 
-          timestamp = "Timestamp:", deserialized_msg["timestamp"]
+          timestamp: str = "Timestamp:", deserialized_msg["timestamp"]
           archivo.write("Objeto deserializado: \n")
           archivo.write(str(timestamp))
           archivo.write("\n")
-          id = "ID:", deserialized_msg["id"]
+          id: str = "ID:", deserialized_msg["id"]
           archivo.write(str(id))
           archivo.write("\n")
-          header = "Header:", deserialized_msg["header"]
+          header: str = "Header:", deserialized_msg["header"]
           archivo.write(str(header))
           archivo.write("\n")
-          body = "Body:", deserialized_msg["body"]
+          body: str = "Body:", deserialized_msg["body"]
           archivo.write(str(body))
           archivo.write("\n")
          

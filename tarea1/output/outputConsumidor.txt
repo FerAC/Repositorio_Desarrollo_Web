@@ -1,5 +1,30 @@
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 01:47:59')
-('ID:', '8234d2c0-2158-46d9-9fea-b424ed307331')
+('Timestamp:', '2024-04-14 02:19:45')
+('ID:', '1c154148-83d2-408b-ae84-af94e116a5d6')
 ('Header:', {'header': 'reunion NUMERO: 0'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-14 02:19:48')
+('ID:', '280d3f17-7001-4883-a339-b610fd1d034d')
+('Header:', {'header': 'reunion NUMERO: 1'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-14 02:19:48')
+('ID:', '0166123e-d3f2-4151-bc8a-68cb300d7ae8')
+('Header:', {'header': 'reunion NUMERO: 2'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-14 02:19:48')
+('ID:', '8616e5e3-ea7b-480c-b440-a4e5cc7b1e61')
+('Header:', {'header': 'reunion NUMERO: 3'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-14 02:19:48')
+('ID:', '87cf92a0-e392-443c-8d9b-94024269090d')
+('Header:', {'header': 'reunion NUMERO: 4'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-14 02:19:48')
+('ID:', 'f9da0ea3-91fa-4656-a049-cb256d38ebc0')
+('Header:', {'header': 'reunion NUMERO: 5'})
 ('Body:', {'body': 'la reunion es hoy'})

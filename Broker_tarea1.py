@@ -50,7 +50,7 @@ class BrokerQueue:
     def enqueue(self, queue_name, msg):
         i = self.find_name(queue_name)
         if not self.is_full(queue_name):
-            print(f"Se agrega en lista {self.current_queue}")
+            # print(f"Se agrega en lista {self.current_queue}")
             self.queue_list[i].append(msg)
             if self.is_full(queue_name):
                 if self.current_queue + 1 < len(self.queue_list):
@@ -69,11 +69,11 @@ class BrokerQueue:
         if self.is_empty(queue_name):
             return 0
         else:
-            print("NOMBRE COLA:")
-            print(queue_name)
+            # print("NOMBRE COLA:")
+            # print(queue_name)
             i = self.find_name(queue_name)
-            print(f"Se desencola de la cola {i}, "
-                "tamano maximo = {self.max_sizes[i]}")
+            # print(f"Se desencola de la cola {i}, "
+            #    "tamano maximo = {self.max_sizes[i]}")
             msg = self.queue_list[i].pop(0)
             empty = False
             if len(self.queue_list[i]) == 0:
@@ -136,12 +136,12 @@ while True:
     if status == "0":
         start_time = time.time()
         if my_queue.is_empty(f"cola_{indice_cola}"):
-            print("Cambio de cola")
-            print(f"////SE INTENTA DE COLA {my_queue.current_dequeue} //////")
+            # print("Cambio de cola")
+            # print(f"////SE INTENTA DE COLA {my_queue.current_dequeue} //////")
             dequeue_status = \
             my_queue.dequeue(f"cola_{my_queue.current_dequeue}")
             if dequeue_status == 0:
-                print("Primera iteracion")
+                # print("Primera iteracion")
                 status2 = my_queue.enqueue(f"cola_{indice_cola}", 
                                            productor.recv(1024))
                 productor.send(str(status2).encode())

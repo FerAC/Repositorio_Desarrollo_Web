@@ -42,33 +42,41 @@ def deserializar_mensaje_avro(msg):
     return deserialized_msg
 
 # Consumir mensajes
-while True:
-    try:
-        # Notificar disponibilidad al broker
-        consumidor.send(str('0').encode())
-        print("Se envía status libre a Broker")
+with open('outputConsumidor.txt', 'w') as archivo:
+  while True:
+      try:
+          # Notificar disponibilidad al broker
+          consumidor.send(str('0').encode())
+          
+          # Esperar respuesta del broker
+          msg = consumidor.recv(1024)
+          if not msg:
+              break
 
-        # Esperar respuesta del broker
-        msg = consumidor.recv(1024)
-        if not msg:
-            break
+          # Empiezo a consumir
+          # consumidor.send(str('1').encode())
+          # print("Se envía status ocupado a Broker")
 
-        # Empiezo a consumir
-        # consumidor.send(str('1').encode())
-        # print("Se envía status ocupado a Broker")
+          # Deserializar el mensaje Avro
+          deserialized_msg = deserializar_mensaje_avro(msg)
 
-        # Deserializar el mensaje Avro
-        deserialized_msg = deserializar_mensaje_avro(msg)
-
-        print("Objeto deserializado:")
-        print("Timestamp:", deserialized_msg["timestamp"])
-        print("ID:", deserialized_msg["id"])
-        print("Header:", deserialized_msg["header"])
-        print("Body:", deserialized_msg["body"])
-
-        time.sleep(5)
-    except Exception as e:
-        print("Error al deserializar:", e)
+          timestamp = "Timestamp:", deserialized_msg["timestamp"]
+          archivo.write("Objeto deserializado: \n")
+          archivo.write(str(timestamp))
+          archivo.write("\n")
+          id = "ID:", deserialized_msg["id"]
+          archivo.write(str(id))
+          archivo.write("\n")
+          header = "Header:", deserialized_msg["header"]
+          archivo.write(str(header))
+          archivo.write("\n")
+          body = "Body:", deserialized_msg["body"]
+          archivo.write(str(body))
+          archivo.write("\n")
+         
+          time.sleep(5)
+      except Exception as e:
+          print("Error al deserializar:", e)
 
 # Cerrar la conexión con el broker
 consumidor.close()

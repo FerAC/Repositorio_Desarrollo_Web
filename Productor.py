@@ -41,7 +41,7 @@ class Message:
 
 # Abre un archivo en modo escritura
 i = 0
-with open('archivo.txt', 'w') as archivo:
+with open('outputProductor.txt', 'w') as archivo:
     while True:
         # Crear una instancia de la clase Message
         msg = Message({"header": "reunion NUMERO: " + str(i)}, {"body": 
@@ -60,6 +60,5 @@ with open('archivo.txt', 'w') as archivo:
         productor.send(serialized_data)
         status = productor.recv(1024).decode()
         archivo.write(f"Estado de encolado: {status}"
-          " En el paquete numero: {i}\n")
-        if status == "1":
-            i += 1
+          f" En el paquete numero: {i}\n")
+        i += 1

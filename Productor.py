@@ -41,21 +41,22 @@ class Message:
 
 # Abre un archivo en modo escritura
 i = 0
-while True:
-    # Crear una instancia de la clase Message
-    msg = Message({"header": "reunion NUMERO: " + str(i)}, {"body": "la reunion es hoy"})
+with open('archivo.txt', 'w') as archivo:
+  while True:
+      # Crear una instancia de la clase Message
+      msg = Message({"header": "reunion NUMERO: " + str(i)}, {"body": "la reunion es hoy"})
 
-    # Serializar el objeto Message utilizando Avro
-    writer = avro_io.DatumWriter(avro_schema)
-    bytes_writer = io.BytesIO()
-    encoder = avro_io.BinaryEncoder(bytes_writer)
-    writer.write({"timestamp": msg.timestamp, "id": msg.id, "header": msg.header, "body": msg.body}, encoder)
+      # Serializar el objeto Message utilizando Avro
+      writer = avro_io.DatumWriter(avro_schema)
+      bytes_writer = io.BytesIO()
+      encoder = avro_io.BinaryEncoder(bytes_writer)
+      writer.write({"timestamp": msg.timestamp, "id": msg.id, "header": msg.header, "body": msg.body}, encoder)
 
-    # Obtener los bytes serializados
-    serialized_data = bytes_writer.getvalue()
+      # Obtener los bytes serializados
+      serialized_data = bytes_writer.getvalue()
 
-    productor.send(serialized_data)
-    status = productor.recv(1024).decode()
-
-    # print("Estado de encolado: " + status + " En el paquete numero: " + str(i))
-    i += 1
+      productor.send(serialized_data)
+      status = productor.recv(1024).decode()
+      archivo.write("Estado de encolado: " + status + " En el paquete numero: " + str(i)+ "\n")
+      if(status == "1"):
+        i += 1

@@ -86,7 +86,7 @@ with open('../output/outputConsumidor.txt', 'w') as archivo:
          
           time.sleep(5)
       except Exception as e:
-          print("Error al deserializar:", e)
+          archivo.write("Error al deserializar:", e)
 
 # Cerrar la conexión con el broker
 consumidor.close()

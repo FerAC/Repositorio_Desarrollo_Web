@@ -1,30 +1,206 @@
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 02:19:45')
-('ID:', '1c154148-83d2-408b-ae84-af94e116a5d6')
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', 'a837ed78-398a-476b-bc17-b4724b2ed0d6')
 ('Header:', {'header': 'reunion NUMERO: 0'})
 ('Body:', {'body': 'la reunion es hoy'})
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 02:19:48')
-('ID:', '280d3f17-7001-4883-a339-b610fd1d034d')
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', 'feaf99cd-9f26-48e3-9642-d2933de334e9')
 ('Header:', {'header': 'reunion NUMERO: 1'})
 ('Body:', {'body': 'la reunion es hoy'})
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 02:19:48')
-('ID:', '0166123e-d3f2-4151-bc8a-68cb300d7ae8')
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', '6b46fb4c-7393-4fce-84d8-dc128867e03a')
 ('Header:', {'header': 'reunion NUMERO: 2'})
 ('Body:', {'body': 'la reunion es hoy'})
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 02:19:48')
-('ID:', '8616e5e3-ea7b-480c-b440-a4e5cc7b1e61')
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', '53c5161d-6495-45fc-ad2a-674f83a8c2cb')
 ('Header:', {'header': 'reunion NUMERO: 3'})
 ('Body:', {'body': 'la reunion es hoy'})
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 02:19:48')
-('ID:', '87cf92a0-e392-443c-8d9b-94024269090d')
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', '5a687351-70da-41ca-a039-5a8e3172dce9')
 ('Header:', {'header': 'reunion NUMERO: 4'})
 ('Body:', {'body': 'la reunion es hoy'})
 Objeto deserializado: 
-('Timestamp:', '2024-04-14 02:19:48')
-('ID:', 'f9da0ea3-91fa-4656-a049-cb256d38ebc0')
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', '453b26f0-de53-4f4d-8076-43479c0d9bea')
 ('Header:', {'header': 'reunion NUMERO: 5'})
 ('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', '9a234c1e-41e7-4ecb-a248-af7d826c28ed')
+('Header:', {'header': 'reunion NUMERO: 6'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', 'cbe1924c-d85a-4bab-ba2a-f0f050a091bb')
+('Header:', {'header': 'reunion NUMERO: 7'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', 'b4382a4c-bc9c-48e5-9fbc-3f5a50ec0222')
+('Header:', {'header': 'reunion NUMERO: 8'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', 'c746e622-e77f-4006-a480-0d3e38ba0bcb')
+('Header:', {'header': 'reunion NUMERO: 9'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:30')
+('ID:', '84d6ec9f-0249-4495-8b06-8fc16a36cd56')
+('Header:', {'header': 'reunion NUMERO: 10'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:34')
+('ID:', '4cce5fe0-4065-4501-a8c1-81e0532cdfcf')
+('Header:', {'header': 'reunion NUMERO: 19831'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:11')
+('ID:', 'f71486cc-37f1-4ca5-abe6-2b13b22b438e')
+('Header:', {'header': 'reunion NUMERO: 216211'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:11')
+('ID:', '1f503ec8-b209-42a9-a20f-96ee9d1bcac8')
+('Header:', {'header': 'reunion NUMERO: 216212'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:11')
+('ID:', '29be0a69-5418-4d9b-b406-630f4c214b86')
+('Header:', {'header': 'reunion NUMERO: 216213'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:37:55')
+('ID:', '19d2d693-119c-47db-81bd-da1ff09a4310')
+('Header:', {'header': 'reunion NUMERO: 134416'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:11')
+('ID:', '1bb7f94a-3ae9-4bb0-978c-f294a0d7e154')
+('Header:', {'header': 'reunion NUMERO: 216214'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:11')
+('ID:', 'd229a01c-b028-49ea-a7f8-a192698d0233')
+('Header:', {'header': 'reunion NUMERO: 216215'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:11')
+('ID:', '624d24cb-aabb-476b-bce1-debe90de8f72')
+('Header:', {'header': 'reunion NUMERO: 216210'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:16')
+('ID:', '4a600740-f078-4aa1-b90c-ad97aabad135')
+('Header:', {'header': 'reunion NUMERO: 244830'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:47')
+('ID:', 'c57ae92d-ef74-435a-931f-f5be0cfde81d')
+('Header:', {'header': 'reunion NUMERO: 410088'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:26')
+('ID:', '2c5ad7bf-be89-4e61-a418-aaf01125706e')
+('Header:', {'header': 'reunion NUMERO: 299605'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:47')
+('ID:', '38c8515d-b686-4aef-b6d6-dfd15b5ceb30')
+('Header:', {'header': 'reunion NUMERO: 410089'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:47')
+('ID:', '2b7e3c34-cc85-4f1f-9e3f-e6fe021f6ed3')
+('Header:', {'header': 'reunion NUMERO: 410090'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:47')
+('ID:', 'f006de9f-35ad-4214-ad79-0fdc24d91178')
+('Header:', {'header': 'reunion NUMERO: 410091'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:47')
+('ID:', '0a9e7e6e-cc17-4591-bee9-9d9bcc1363a4')
+('Header:', {'header': 'reunion NUMERO: 410087'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:38:52')
+('ID:', '147126fe-1d93-472f-bcfd-59334006ae64')
+('Header:', {'header': 'reunion NUMERO: 436882'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:17')
+('ID:', '6e9b5f75-8548-4d93-aa9e-9a0157a5ddb4')
+('Header:', {'header': 'reunion NUMERO: 577734'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:02')
+('ID:', 'ed171a7d-23d2-472c-818b-408d7078b7d7')
+('Header:', {'header': 'reunion NUMERO: 491080'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:17')
+('ID:', 'b1035eb2-6464-452d-8779-89899263b611')
+('Header:', {'header': 'reunion NUMERO: 577735'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:17')
+('ID:', 'd4feb188-3d01-46c8-abdd-ec5ef3056782')
+('Header:', {'header': 'reunion NUMERO: 577736'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:17')
+('ID:', 'ef4a8222-bc57-405f-a029-eaf018be831b')
+('Header:', {'header': 'reunion NUMERO: 577733'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:22')
+('ID:', '7cf71299-0412-4a69-a7fd-2733a98de452')
+('Header:', {'header': 'reunion NUMERO: 604902'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:52')
+('ID:', '0947b445-4fe4-4ede-938f-6879be128c72')
+('Header:', {'header': 'reunion NUMERO: 767761'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:52')
+('ID:', '57569fc3-e519-40fb-90d6-defa08d71579')
+('Header:', {'header': 'reunion NUMERO: 767762'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:37')
+('ID:', '1bcaa81b-2a8e-4702-b3de-20289e5af96f')
+('Header:', {'header': 'reunion NUMERO: 687211'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:52')
+('ID:', '9c6f0dad-334d-4263-9fc8-4710e7cae188')
+('Header:', {'header': 'reunion NUMERO: 767763'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:52')
+('ID:', '6c73746e-5cb8-4d76-9f47-634c3a1d63bb')
+('Header:', {'header': 'reunion NUMERO: 767764'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:52')
+('ID:', 'd42838a6-1e39-4c4d-851a-3003b8949aa6')
+('Header:', {'header': 'reunion NUMERO: 767760'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:39:57')
+('ID:', 'c85ccdf1-a2c1-4d4d-b585-fc6bb9c2ccd3')
+('Header:', {'header': 'reunion NUMERO: 796517'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 
+('Timestamp:', '2024-04-20 23:40:27')
+('ID:', 'e97ae997-94a0-48ba-b720-1be762b01fec')
+('Header:', {'header': 'reunion NUMERO: 963529'})
+('Body:', {'body': 'la reunion es hoy'})
+Objeto deserializado: 

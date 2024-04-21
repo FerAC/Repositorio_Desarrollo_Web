@@ -1,4 +1,5 @@
 import subprocess
+import signal
 import time
 import sys
 from typing import List
@@ -32,7 +33,7 @@ def levantar_broker(archivo_py: str, puerto: str) -> subprocess.Popen:
     """
     cantidad_colas: \
     str = input("Ingrese la cantidad de colas para el Broker: ")
-    print("Tiene 10 segundos para configurar el broker")
+    print("Dispone de 10 segundos para configurar el broker")
     comando = f"python3 {archivo_py} {puerto} {cantidad_colas}"
     broker = subprocess.Popen(comando.split())
     print(f"Servidor levantado en el puerto {puerto}")
@@ -42,13 +43,15 @@ def levantar_broker(archivo_py: str, puerto: str) -> subprocess.Popen:
 if __name__ == "__main__":
     puerto: str = input("Digite el puerto a utilizar por el Broker: ")
 
-    servidor_broker = levantar_broker("Broker_tarea1.py", puerto)
-    servidor_productor = levantar_servidor("Productor.py", puerto)
-    servidor_consumidor = levantar_servidor("Consumidor.py", puerto)
+    servidor_broker = levantar_broker("message_broker.py", puerto)
+    servidor_productor = levantar_servidor("producer.py", puerto)
+    servidor_consumidor = levantar_servidor("consumer.py", puerto)
 
     tiempo: List[str] = sys.argv
     time.sleep(int(tiempo[1]))
-    servidor_productor.terminate()
-    servidor_broker.terminate()
-    servidor_consumidor.terminate()
+
+    servidor_broker.send_signal(signal.SIGINT)
+    servidor_broker.wait()
+    servidor_productor.wait()
+    servidor_consumidor.wait()
     print("Servidores detenidos")

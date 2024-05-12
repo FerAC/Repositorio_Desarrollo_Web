@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sitio_personal',
 ]
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'sitio_personal', 'static'),
@@ -53,11 +54,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'blog_personal.urls'
-
+FILE_CHARSET = 'utf-8'
+DEFAULT_CHARSET = 'utf-8'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'sitio_personal', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

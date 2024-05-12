@@ -1,0 +1,123 @@
+.navbar-custom {
+    background-color: #05202D; /* Verde claro */
+    height: 80px; /* Altura personalizada */
+
+}
+
+.footer-black {
+    background-color: #000;
+    color: #fff;
+    padding-top: 20px;
+    height: 100px;
+    line-height: 60px;
+}
+
+.col-gris {
+    background-color: #ccc;
+    width: 50%;
+    height: 100vh;
+}
+.mitad_pantalla {
+    width: 50%;
+    height: 100vh;
+}
+.boton_azul{
+    background-color:#05202D;
+    color: #fff;
+    padding: 1rem;
+}
+.boton_celeste{
+    background-color:#245268;
+    color: #fff;
+    padding: 1rem;
+    padding-right: 0;
+}
+.boton_azul:hover{
+    background-color:#17303d;
+}
+
+.boton_celeste:hover{
+    background-color:#3B6275;
+}
+.col-celeste {
+    
+    width: 50%;
+    height: 100vh;
+    z-index: 1;
+}
+
+.bloque_info{
+    
+    margin-top: 10rem;
+}
+.bloque_info h3{
+    color: #000000;
+}
+
+.bloque_proyectos {
+    background: white url("../img/Rectangle8.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 800px;
+    width: 100%;
+    color: #fff;
+}
+
+.prueba {
+    background-color: white;
+    padding: 0;
+    position: relative;
+    top: 18rem;
+    width: 100%;
+    height: 100vh;
+}
+.titulo_resume{
+    position:absolute;
+    left: 68rem;
+    z-index: 6;
+    color: white;
+    top: 9rem;
+}
+.imagen_about{
+    position: relative;
+    left: 10rem;
+    
+}
+.barra_inferior_resume {
+    background-color: #ccc;
+    position: relative;
+    top: 28rem;
+    height: 30rem;
+}
+.fondo-foto{
+    background-color: black;
+}
+.foto{
+    position: absolute;
+    z-index: 4;
+    top: 14rem;
+    left: 10rem;
+    width: 25rem;
+}
+.imagen_gris{
+    position: absolute;
+    left: 8rem;
+    top: 2rem;
+}
+
+.img-parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Altura de la imagen, ajusta según sea necesario */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+    z-index: -1; /* Coloca la imagen detrás del contenido */
+    transition: transform 0.3s ease-out; /* Agrega una transición suave al desplazamiento */
+}
+
+/* Estilos para el contenedor superior */
+.container-fluid.col-celeste {
+    min-height: 80vh; /* Altura mínima del contenedor superior para cubrir una porción de la imagen */
+}

@@ -1,15 +1,149 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Lista de Articulos</h1>
-<ul>
-    {% for articulo in articulos %}
-    <li>{{ articulo.titulo }}</li>
-    <ul>
-        {% for etiqueta in articulo.etiquetas.all %}
-        <li>{{ etiqueta.nombre }}</li>
-        {% endfor %}
+<div class="container mb-4 contenedor_articulos" style="position: relative;">
+    <h1 style="color: #05202D; "><br />Blog Personal <br /></h1>
+    <form class="form-inline" method="get" action="{% url 'listar_articulos' %}">
+        <div class="form-group">
+            <label for="items_per_page" class="mr-2">Elementos por pagina:</label>
+            <select class="form-control" name="items_per_page" id="items_per_page">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary ml-2">Actualizar</button>
+    </form>
+    <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="relevantes-tab" data-bs-toggle="tab" data-bs-target="#relevantes" type="button" role="tab" aria-controls="relevantes" aria-selected="true">Mas Relevantes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="recientes-tab" data-bs-toggle="tab" data-bs-target="#recientes" type="button" role="tab" aria-controls="recientes" aria-selected="false">Mas Recientes</button>
+        </li>
     </ul>
-    {% endfor %}
-</ul>
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="relevantes" role="tabpanel" aria-labelledby="relevantes-tab">
+            {% if items_page_likes %}
+            {% for articulo in items_page_likes %}
+            <div class="articulo">
+                
+                <div class="container text-start">
+                    <div class="row justify-content-start">
+                        <div class="col">
+                            <img src="../static/img/{{ articulo.thumbnail_name}}" alt="{{ articulo.thumbnail_name}}">
+                            
+                        </div>
+
+                        <div class="col">
+                            <div class="texto_miniatura">
+
+                                <h2>{{ articulo.titulo }}</h2>
+                                <p>{{ articulo.preview }}</p>
+                                <span>Tiempo de lectura: {{ articulo.tiempo_lectura }} minutos <br /></span>
+                                <span>Fecha de Publicacion: {{ articulo.fecha_publicacion }} <br /></span>
+                                <span>Likes: {{articulo.likes}} </span>
+                                <span>
+                                    Categorias:
+                                    {% for etiqueta in articulo.etiquetas.all %}
+                                    {{ etiqueta.nombre }}
+                                    {% endfor %}
+                                    <br />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+            {% if items_page_likes.has_other_pages %}
+            <div class="btn-group" role="group" aria-label="Item pagination">
+                {% if items_page_likes.has_previous %}
+                <a href="?page={{ items_page_likes.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+                {% endif %}
+
+                {% for page_number in items_page_likes.paginator.page_range %}
+                {% if items_page_likes.number == page_number %}
+                <button class="btn btn-outline-primary active">
+                    <span>{{ page_number }} <span class="sr-only">(current)</span></span>
+                </button>
+                {% else %}
+                <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+                    {{ page_number }}
+                </a>
+                {% endif %}
+                {% endfor %}
+
+                {% if items_page_likes.has_next %}
+                <a href="?page={{ items_page_likes.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% else %}
+            <p>No items found.</p>
+            {% endif %}
+        </div>
+
+        <div class="tab-pane fade" id="recientes" role="tabpanel" aria-labelledby="recientes-tab">
+            {% if items_page_relevant %}
+            {% for articulo in items_page_relevant %}
+            <div class="articulo">
+
+                <h2>{{ articulo.titulo }}</h2>
+                <img src="../static/img/{{ articulo.thumbnail_name}}" alt="{{ articulo.thumbnail_name}}">
+                <p>{{ articulo.preview }}</p>
+                <span>Tiempo de lectura: {{ articulo.tiempo_lectura }} minutos <br /></span>
+                <span>
+                    Categorias:
+                    {% for etiqueta in articulo.etiquetas.all %}
+                    {{ etiqueta.nombre }}
+                    {% endfor %}
+                    <br />
+                </span>
+                <span>Fecha de Publicacion: {{ articulo.fecha_publicacion }} <br /></span>
+                <span>Likes: {{articulo.likes}} </span>
+            </div>
+            {% endfor %}
+            {% if items_page_relevant.has_other_pages %}
+            <div class="btn-group" role="group" aria-label="Item pagination">
+                {% if items_page.has_previous %}
+                <a href="?page={{ items_page_relevant.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+                {% endif %}
+
+                {% for page_number in items_page_relevant.paginator.page_range %}
+                {% if items_page_relevant.number == page_number %}
+                <button class="btn btn-outline-primary active">
+                    <span>{{ page_number }} <span class="sr-only">(current)</span></span>
+                </button>
+                {% else %}
+                <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+                    {{ page_number }}
+                </a>
+                {% endif %}
+                {% endfor %}
+
+                {% if items_page_relevant.has_next %}
+                <a href="?page={{ items_page_relevant.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% else %}
+            <p>No items found.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+<footer class="footer-black ">
+    <div class="container">
+        
+    </div>
+</footer>
+
 {% endblock %}

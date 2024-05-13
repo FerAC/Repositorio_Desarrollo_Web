@@ -4,9 +4,11 @@
     "\\blog_personal",
     "\\blog_personal\\blog_personal",
     "\\blog_personal\\sitio_personal",
+    "\\blog_personal\\sitio_personal\\static",
     "\\blog_personal\\sitio_personal\\templates",
-    "\\blog_personal\\sitio_personal\\templates\\sitio_personal"
+    "\\blog_personal\\sitio_personal\\templates\\sitio_personal",
+    "\\blog_personal\\thumbnails"
   ],
-  "SelectedNode": "\\blog_personal\\sitio_personal\\templates\\sitio_personal\\listar_articulos.html",
+  "SelectedNode": "\\blog_personal\\sitio_personal\\templates\\sitio_personal\\resume.html",
   "PreviewInSolutionExplorer": false
 }

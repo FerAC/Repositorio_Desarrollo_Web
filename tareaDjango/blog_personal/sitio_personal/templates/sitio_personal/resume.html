@@ -3,19 +3,20 @@
 
 
 <div style="position:relative;">
-    <!-- Contenedor superior -->
-    <div class="container-fluid col-celeste" style="position:absolute; top:0; left:0; right:0; z-index:2;">
-    </div>
 
-    <!-- Imagen de fondo con efecto de paralaje -->
+
+
+
     <img src="../static/img/blue_background.jpg" class="img-fluid img-parallax" alt="...">
     <div class="titulo_resume">
         <h1>Fernando Arce Castillo</h1>
         <h4>Estudiante Ing.Soft</h4>
         <img src="../static/img/logo_linkedin.png" alt="perfil linkedin" /> <span> <img src="../static/img/logo_facebook.png" alt="perfil linkedin" /> </span>
-        <h5 style="color: black;"><br /> <span style="color: #1D6F96;">Perfil Profesional: </span> Soy estudiante de ingenieria de software con un <br /> enfoque apasionado en el diseno web y el analisis de datos. <br />
-        Mi objetivo es aplicar mis habilidades tecnicas y mi<br /> capacidad analitica para contribuir al desarrollo de soluciones <br />
-        innovadoras en el campo de la tecnologia.</h5>
+        <h5 style="color: black;">
+            <br /> <span style="color: #1D6F96;"><br />Perfil Profesional: </span> Soy estudiante de ingenieria de software con un <br /> enfoque apasionado en el diseno web y el analisis de datos. <br />
+            Mi objetivo es aplicar mis habilidades tecnicas y mi<br /> capacidad analitica para contribuir al desarrollo de soluciones <br />
+            innovadoras en el campo de la tecnologia.
+        </h5>
         <h5><span style="color: #1D6F96;"> <br />Educacion:</span></h5>
         <h5 style="color: black;">
             Tecnico en Electronica con Enfasis en Mantenimiento y  <br /> Reparacion de Equipos de Computo <br /> <br />
@@ -24,55 +25,60 @@
         </h5>
 
     </div>
-    <!-- Contenido del contenedor -->
+
     <div class="container-fluid prueba" style="position:absolute;  z-index:3;">
         <div class="barra_inferior_resume">
-            <div class="container text-center">
+            <div class="container text-start">
                 <div class="row align-items-start">
-                    <div class="col">
-                        <h5><span style="color: #1D6F96;"> <br />Experiencia Laboral</span></h5>
+                    <div class="col-4">
+                        <h4><span style="color: whitesmoke;"> <br />Experiencia Laboral</span></h4>
                         <div class="container text-start">
-                            <h5 style="color: black;">
+                            <h5 style="color: white;">
                                 Practicante en IPL Sistemas: <br />Participe en la instalacion y mantenimiento de cableado estructural, adquiriendo habilidades practicas y conocimientos en el ambito tecnologico.<br /> <br />
                             </h5>
                         </div>
-                        </div>
-                    <div class="col">
-                        <h5><span style="color: #1D6F96;"> <br />Tecnologias</span></h5>
+                    </div>
+                    <div class="col-4 ml-auto">
+                        <h4><span style="color: white;"> <br />Tecnologias</span></h4>
                         <div class="container text-start">
-                            <h5 style="color: black;">
+                            <h5 style="color: white;">
                                 Domino una amplia gama de tecnologias, incluyendo C, C++, C#, Java, HTML, CSS, SQL, Python, Apache, Git, etc... <br /> Lo que me permite desarrollar soluciones efectivas y eficientes en diferentes entornos y plataformas.<br /> <br />
                             </h5>
                         </div>
                     </div>
-                    <div class="col">
-                        <h5><span style="color: #1D6F96;"> <br />Habilidades blandas</span></h5>
-                        <h5 style="color: black;">
-                            
-                                Domino una amplia gama de tecnologias, incluyendo C, C++, C#, Java, HTML, CSS, SQL, Python y Apache, lo que me permite desarrollar soluciones efectivas y eficientes en diferentes entornos y plataformas.<br /> <br />
+                    <div class="col-4">
+                        <h4><span style="color: whitesmoke;"> <br />Habilidades blandas</span></h4>
+                        <h5 style="color: white;">
+
+                            Domino una amplia gama de tecnologias, incluyendo C, C++, C#, Java, HTML, CSS, SQL, Python y Apache, lo que me permite desarrollar soluciones efectivas y eficientes en diferentes entornos y plataformas.<br /> <br />
                             <br /> <br />
                         </h5>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div class="foto">
-        <img src="../static/img/Rectangle4.png" class="img-fluid fondo-foto" alt="...">
+    <img src="../static/img/Rectangle4.png" class="img-fluid fondo-foto" alt="...">
 </div>
 
 
 
-
+<footer class="footer_resume">
+    <div class="container">
+        
+    </div>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $(window).on('scroll', function () {
             var scrollPos = $(this).scrollTop();
-            $('.img-parallax').css('transform', 'translateY(-' + scrollPos / 2 + 'px)');
+            $('.img-parallax').css('transform', 'translateY(' + scrollPos / 2 + 'px)');
         });
     });
 </script>
+
 {% endblock %}

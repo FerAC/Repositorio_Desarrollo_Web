@@ -2,9 +2,16 @@ from django.shortcuts import render
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
-from django.core.paginator import Paginator
+from django.views.generic import ListView
 from .models import Articulo
 from .models import Etiqueta
+from django.core.paginator import (
+    Paginator,
+    EmptyPage,
+    PageNotAnInteger,
+)
+
+
 
 def index(request):
     return render(request, 'sitio_personal/index.html')
@@ -44,9 +51,41 @@ def subscribe(request):
         form = SubscriptionForm()
     return render(request, 'suscripcion.html', {'form': form})
 
+
+
 def listar_articulos(request):
-    articulos = Articulo.objects.all()
-    return render(request, 'sitio_personal/listar_articulos.html', {'articulos': articulos})
+    default_page = 1
+    page = request.GET.get('page', default_page)
+
+    items_per_page = request.GET.get('items_per_page', 5)
+
+    
+    articulos_por_likes = Articulo.objects.all().order_by('-likes')
+    articulos_mas_recientes = Articulo.objects.all().order_by('-fecha_publicacion')
+
+    paginator = Paginator(articulos_por_likes, items_per_page)
+
+    try:
+        items_page_likes = paginator.page(page)
+    except PageNotAnInteger:
+        items_page_likes = paginator.page(default_page)
+    except EmptyPage:
+        items_page_likes = paginator.page(paginator.num_pages)
+
+    paginator = Paginator(articulos_mas_recientes, items_per_page)
+
+    try:
+        items_page_relevant = paginator.page(page)
+    except PageNotAnInteger:
+        items_page_relevant = paginator.page(default_page)
+    except EmptyPage:
+        items_page_relevant = paginator.page(paginator.num_pages)
+
+    context = {
+        'items_page_likes': items_page_likes,
+        'items_page_relevant': items_page_relevant
+    }
+    return render(request, 'sitio_personal/listar_articulos.html', context)
 
 def detalle_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, pk=articulo_id)

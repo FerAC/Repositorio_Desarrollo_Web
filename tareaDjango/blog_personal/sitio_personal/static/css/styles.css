@@ -70,14 +70,14 @@
     position: relative;
     top: 18rem;
     width: 100%;
-    height: 100vh;
+    height: 25rem;
 }
 .titulo_resume{
     position:absolute;
     left: 68rem;
     z-index: 6;
     color: white;
-    top: 9rem;
+    top: 8rem;
 }
 .imagen_about{
     position: relative;
@@ -85,39 +85,73 @@
     
 }
 .barra_inferior_resume {
-    background-color: #ccc;
+    
     position: relative;
     top: 28rem;
     height: 30rem;
 }
-.fondo-foto{
+.fondo-foto {
     background-color: black;
+    border-radius: 2rem;
 }
-.foto{
+.foto {
     position: absolute;
     z-index: 4;
     top: 14rem;
     left: 10rem;
     width: 25rem;
+    border-radius: 2rem;
 }
 .imagen_gris{
     position: absolute;
     left: 8rem;
     top: 2rem;
 }
+.linea_gris {
+    position: relative;
+    background-color: #ddd;
+    width: 100px;
+    height: 100%;
+}
+.articulo {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 2rem;
+    border-top-left-radius: 0;
+}
 
+    .articulo img {
+        position: relative;
+        border-radius: 2rem;
+        max-width: 200px;
+        height: auto;
+    }
+.texto_miniatura{
+    
+    left: 25rem;
+}
 .img-parallax {
     position: absolute;
-    top: 0;
+    top: -220px;
     left: 0;
     width: 100%;
-    height: 100vh; /* Altura de la imagen, ajusta según sea necesario */
-    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
-    z-index: -1; /* Coloca la imagen detrás del contenido */
-    transition: transform 0.3s ease-out; /* Agrega una transición suave al desplazamiento */
+    height: 140vh;
+    object-fit: cover;
+    z-index: -1;
+    transition: transform 0.3s ease-out;
 }
 
-/* Estilos para el contenedor superior */
-.container-fluid.col-celeste {
-    min-height: 80vh; /* Altura mínima del contenedor superior para cubrir una porción de la imagen */
+.contenedor_articulos{
+    min-height: 100vh;
 }
+
+.footer_resume{
+    position: absolute;
+    top: 140%;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+}
+.container-fluid.col-celeste {
+    min-height: 80vh; 

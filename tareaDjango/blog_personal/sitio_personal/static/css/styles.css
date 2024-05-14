@@ -126,10 +126,16 @@
         border-radius: 2rem;
         max-width: 200px;
         height: auto;
+        
+        
     }
-.texto_miniatura{
+.texto_miniatura {
     
-    left: 25rem;
+    position: relative;
+    right: 25rem;
+    height: 100%;
+    padding-left: 100px;
+    
 }
 .img-parallax {
     position: absolute;
@@ -142,6 +148,13 @@
     transition: transform 0.3s ease-out;
 }
 
+.linea_gris {
+    position: absolute;
+    width: 200px;
+    height: inherit;
+    background-color: #ccc;
+    z-index: -1;
+}
 .contenedor_articulos{
     min-height: 100vh;
 }
@@ -154,4 +167,5 @@
     height: 100px;
 }
 .container-fluid.col-celeste {
-    min-height: 80vh; 
+    min-height: 80vh;
+}

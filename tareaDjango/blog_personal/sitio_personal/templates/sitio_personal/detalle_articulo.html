@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-xxl articulo_encabezado">
+    <h1 style="color: #3B6275; font-size: 50px;">{{ articulo.titulo }}</h1>
+    <div class="col">
+        {% comment %} <img src="../../static/img/{{ articulo.thumbnail_name }}" alt="{{ articulo.thumbnail_name }}"> {% endcomment %}
+    </div>
+    <h4>Autor: Fernando Arce Castillo</h4>
+    <h4><i class="fas fa-heart"> {{articulo.likes}}</i></h4>
+</div>
+
+<div class="container-xxl articulo_completo">
+    <h3>Categorías:</h3>
+    <h4>
+        {% for etiqueta in articulo.etiquetas.all %}
+            {{ etiqueta.nombre }}
+        {% endfor %}
+        <br />
+    </h4>
+    <h3><br />Contenido </h3>
+    <p>{{ articulo.contenido|linebreaks }}</p>
+
+    <!-- Botón para abrir el modal de comentarios -->
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comentarioModalLabel">Agregar Comentario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Agregar Comentario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl articulo_completo">
+    <h3>Comentarios</h3>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comentarioModal">
+        Comentar
+    </button>
+    <div class="lista_comentarios">
+        {% for comentario in comentarios %}
+            <div class="comentario">
+                <h5>{{ comentario.nombre }} <small>{{ comentario.fecha|date:"d M Y H:i" }}</small></h4>
+                <p>{{ comentario.cuerpo|linebreaks }}</p>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No hay comentarios aún.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<footer class="footer-black mt-4">
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="container">
+                    <a href="https://www.linkedin.com/" target="_blank">
+                        <img src="../../static/img/logo_linkedin.png" alt="perfil linkedin" />
+                    </a>
+                    <span>
+                        <a href="https://www.facebook.com/" target="_blank">
+                            <img src="../../static/img/logo_facebook.png" alt="perfil facebook" />
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="col">
+                Fernando Arce Castillo
+            </div>
+            <div class="col">
+                2222-2222
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

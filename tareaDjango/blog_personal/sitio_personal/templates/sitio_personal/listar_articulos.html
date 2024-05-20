@@ -33,13 +33,13 @@
                 <div class="container text-start">
                     <div class="row justify-content-start">
                         <div class="col">
-                            <img src="../static/img/{{ articulo.thumbnail_name}}" alt="{{ articulo.thumbnail_name}}">
+                            <img src="../static/img/thumbnails/{{ articulo.thumbnail_name}}" alt="{{ articulo.thumbnail_name}}">
                             
                         </div>
 
                         <div class="col">
                             <div class="texto_miniatura">
-                                <h2>{{ articulo.titulo }}</h2>
+                                <h2><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a></h2>
                                 <h4> Preview:</h4>
                                 <p>{{ articulo.preview }}</p>
                                 <span>Tiempo de lectura: {{ articulo.tiempo_lectura }} minutos <br /></span>
@@ -95,7 +95,7 @@
             <div class="articulo">
 
                 <h2>{{ articulo.titulo }}</h2>
-                <img src="../static/img/{{ articulo.thumbnail_name}}" alt="{{ articulo.thumbnail_name}}">
+                <img src="../static/img/thumbnails/{{ articulo.thumbnail_name}}" alt="{{ articulo.thumbnail_name}}">
                 <p>{{ articulo.preview }}</p>
                 <span>Tiempo de lectura: {{ articulo.tiempo_lectura }} minutos <br /></span>
                 <span>
@@ -141,9 +141,28 @@
 
 </div>
 <footer class="footer-black ">
-    <div class="container">
-        
-    </div>
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="container">
+                <a href="https://www.linkedin.com/" target="_blank">
+                    <img src="../static/img/logo_linkedin.png" alt="perfil linkedin" />
+                </a>
+                <span>
+                    <a href="https://www.facebook.com/" target="_blank">
+                        <img src="../static/img/logo_facebook.png" alt="perfil facebook" />
+                    </a>
+                </span>
+            </div>
+          </div>
+          <div class="col">
+            Fernando Arce Castillo
+          </div>
+          <div class="col">
+            2222-2222
+          </div>
+        </div>
+      </div>
 </footer>
 
 {% endblock %}

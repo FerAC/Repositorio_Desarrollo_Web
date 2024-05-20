@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 class Etiqueta(models.Model):
     """
@@ -37,7 +38,7 @@ class Articulo(models.Model):
     contenido = models.TextField()
     etiquetas = models.ManyToManyField(Etiqueta)
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     thumbnail = models.ImageField(upload_to='sitio_personal/static/img/thumbnails', null=True, blank=True)
     preview = models.TextField(null=True, blank=True)
     tiempo_lectura = models.IntegerField(default=5)
@@ -61,6 +62,9 @@ class Articulo(models.Model):
             str: El título del artículo.
         """
         return self.titulo
+    
+    def total_likes(self):
+        return self.likes.count()
     
 class Comentario(models.Model):
     articulo = models.ForeignKey(Articulo, related_name='comentarios', on_delete=models.CASCADE)

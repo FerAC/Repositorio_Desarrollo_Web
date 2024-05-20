@@ -7,7 +7,12 @@
         {% comment %} <img src="../../static/img/{{ articulo.thumbnail_name }}" alt="{{ articulo.thumbnail_name }}"> {% endcomment %}
     </div>
     <h4>Autor: Fernando Arce Castillo</h4>
-    <h4><i class="fas fa-heart"> {{articulo.likes}}</i></h4>
+    <h4>
+        <a href="#" class="like-button" data-id="{{ articulo.id }}">
+            <i class="fas fa-heart"></i> {{ articulo.total_likes }}
+        </a>
+        
+    </h4>
 </div>
 
 <div class="container-xxl articulo_completo">
@@ -46,10 +51,10 @@
 
 <div class="container-xxl articulo_completo">
     <h3>Comentarios</h3>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comentarioModal">
+    <button type="button" class="btn btn-primary mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#comentarioModal">
         Comentar
     </button>
-    <div class="lista_comentarios">
+    <div class="lista_comentarios mb-4">
         {% for comentario in comentarios %}
             <div class="comentario">
                 <h5>{{ comentario.nombre }} <small>{{ comentario.fecha|date:"d M Y H:i" }}</small></h4>
@@ -86,4 +91,24 @@
         </div>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.like-button').addEventListener('click', function(event) {
+            event.preventDefault();
+            const articleId = this.getAttribute('data-id');
+            
+            fetch(`/articulo/${articleId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+    </script>
 {% endblock %}

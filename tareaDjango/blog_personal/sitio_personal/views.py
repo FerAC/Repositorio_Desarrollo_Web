@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
 from .models import Articulo, Etiqueta, Comentario
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
@@ -183,4 +184,17 @@ def detalle_articulo(request, articulo_id):
         form = ComentarioForm()
 
     return render(request, 'sitio_personal/detalle_articulo.html', {'articulo': articulo, 'comentarios': comentarios, 'form': form})
+
+@login_required
+def like_article(request, article_id):
+    articulo = get_object_or_404(Articulo, id=article_id)
+    user = request.user
+
+    # Verificar si el usuario ya le dio 'me gusta' al artículo
+    if articulo.likes.filter(id=user.id).exists():
+        articulo.likes.remove(user)
+    else:
+        articulo.likes.add(user)
+
+    return redirect('detalle_articulo', article_id=article_id)
 

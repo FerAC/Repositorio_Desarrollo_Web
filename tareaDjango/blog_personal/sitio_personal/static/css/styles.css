@@ -193,9 +193,12 @@ body{
     padding-right: 5rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-bottom: 3rem;
     margin-top: 2rem;
     border-radius: 1rem;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-
+.respuestas{
+    margin-left: 3rem;
+}

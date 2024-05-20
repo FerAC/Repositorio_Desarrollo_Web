@@ -70,7 +70,15 @@ class Comentario(models.Model):
     articulo = models.ForeignKey(Articulo, related_name='comentarios', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
     cuerpo = models.TextField()
-    fecha = models.DateTimeField(default=timezone.now)
+    fecha = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='respuestas', on_delete=models.CASCADE)
+    es_respuesta = models.BooleanField(default=False)
+    
+    class Meta:
+        ordering = ['-fecha']
 
     def __str__(self):
         return f'Comentario de {self.nombre} en {self.articulo}'
+
+    def is_reply(self):
+        return self.parent is not None

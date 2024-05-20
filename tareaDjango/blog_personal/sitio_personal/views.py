@@ -171,7 +171,7 @@ def contact_success(request):
 
 def detalle_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
-    comentarios = articulo.comentarios.order_by('-fecha')
+    comentarios = articulo.comentarios.order_by('-fecha').filter(es_respuesta = False)
 
     if request.method == 'POST':
         form = ComentarioForm(request.POST)

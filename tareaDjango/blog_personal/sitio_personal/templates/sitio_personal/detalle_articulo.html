@@ -50,7 +50,7 @@
 </div>
 
 <div class="container-xxl articulo_completo">
-    <h3>Comentarios</h3>
+    <h3 style="color: #3B6275;">Comentarios</h3>
     <button type="button" class="btn btn-primary mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#comentarioModal">
         Comentar
     </button>
@@ -59,6 +59,31 @@
             <div class="comentario">
                 <h5>{{ comentario.nombre }} <small>{{ comentario.fecha|date:"d M Y H:i" }}</small></h4>
                 <p>{{ comentario.cuerpo|linebreaks }}</p>
+                {% if comentario.respuestas.all %}
+                <div class="accordion accordion-flush" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <h5 style="color: #3B6275;"> Ver Respuestas </h5>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <h5 style="color: #3B6275;"> Respuestas </h5>
+                                <div class="respuestas">
+                                    {% for respuesta in comentario.respuestas.all %}
+                                    <div class="respuesta">
+                                        <h5>{{ respuesta.nombre }} <small>{{ respuesta.fecha|date:"d M Y H:i" }}</small></h5>
+                                        <p>{{ respuesta.cuerpo|linebreaks }}</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% endif %}
             </div>
             <hr>
         {% empty %}

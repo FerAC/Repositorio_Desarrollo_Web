@@ -17,7 +17,7 @@ def enviar_notificacion_nuevo_articulo(sender, instance, created, **kwargs):
 
 def enviar_correo_notificacion(suscripcion, articulo):
     subject = 'Nuevo artículo en el blog'
-    message = f'Hola {suscripcion.nombre},\n\nSe ha publicado un nuevo artículo en el blog:\n\n{articulo.titulo}\n{articulo.preview}\n\nSaludos!'
+    message = f'Hola {suscripcion.nombre},\n\nSe ha publicado un nuevo artículo en el blog:\n Titulo:\n{articulo.titulo}\n Preview: \n{articulo.preview}\n\nSaludos!'
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient_list = [suscripcion.email]
     send_mail(subject, message, from_email, recipient_list)

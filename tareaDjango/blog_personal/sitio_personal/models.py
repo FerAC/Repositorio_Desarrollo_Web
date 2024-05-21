@@ -67,6 +67,17 @@ class Articulo(models.Model):
         return self.likes.count()
     
 class Comentario(models.Model):
+    """
+    Clase que representa un comentario en un artículo.
+
+    Atributos:
+        articulo (ForeignKey): El artículo al que pertenece el comentario.
+        nombre (CharField): El nombre del autor del comentario.
+        cuerpo (TextField): El cuerpo del comentario.
+        fecha (DateTimeField): La fecha y hora de publicación del comentario.
+        parent (ForeignKey, opcional): El comentario al que responde este comentario (si es una respuesta).
+        es_respuesta (BooleanField): Indica si el comentario es una respuesta a otro comentario.
+    """
     articulo = models.ForeignKey(Articulo, related_name='comentarios', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
     cuerpo = models.TextField()
@@ -78,13 +89,35 @@ class Comentario(models.Model):
         ordering = ['-fecha']
 
     def __str__(self):
+        """
+        Representación en cadena del comentario.
+
+        Retorna:
+            str: Una cadena que representa el comentario.
+        """
         return f'Comentario de {self.nombre} en {self.articulo}'
 
     def is_reply(self):
+        """
+        Verifica si el comentario es una respuesta.
+
+        Retorna:
+            bool: True si es una respuesta, False en caso contrario.
+        """
         return self.parent is not None
     
 
 class Suscripcion(models.Model):
+    """
+    Clase que representa una suscripción al blog.
+
+    Atributos:
+        email (EmailField): El correo electrónico de la suscripción.
+        nombre (CharField): El nombre asociado a la suscripción.
+        frecuencia (CharField): La frecuencia de interacción deseada (diario, semanal, mensual).
+        recibir_notificaciones (BooleanField): Indica si la suscripción desea recibir notificaciones.
+        fecha_suscripcion (DateTimeField): La fecha y hora en que se realizó la suscripción.
+    """
     email = models.EmailField()
     nombre = models.CharField(max_length=100)
     frecuencia = models.CharField(max_length=10, choices=[('diario', 'Diario'), ('semanal', 'Semanal'), ('mensual', 'Mensual')])
@@ -92,9 +125,24 @@ class Suscripcion(models.Model):
     fecha_suscripcion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+        """
+        Representación en cadena de la suscripción.
+
+        Retorna:
+            str: Una cadena que representa la suscripción.
+        """
         return f'{self.nombre} ({self.email})'
     
 class MensajeContacto(models.Model):
+    """
+    Clase que representa un mensaje de contacto.
+
+    Atributos:
+        nombre (CharField): El nombre del remitente del mensaje.
+        email (EmailField): El correo electrónico del remitente del mensaje.
+        cuerpo (TextField): El cuerpo del mensaje de contacto.
+        fecha_envio (DateTimeField): La fecha y hora en que se envió el mensaje.
+    """
     nombre = models.CharField(max_length=100)
     email = models.EmailField()
     cuerpo = models.TextField()

@@ -117,6 +117,19 @@ def listar_articulos(request):
 
 
 def contact(request):
+    """
+    Vista para manejar el formulario de contacto.
+
+    Permite a los usuarios enviar mensajes de contacto. Si el formulario es válido,
+    envía un correo electrónico al administrador del sitio y guarda el mensaje en la
+    base de datos.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+
+    Retorna:
+        HttpResponse: La respuesta HTTP renderizada.
+    """
     if request.method == 'POST':
         print("Se va a imprimir metodo")
         print(request.method)
@@ -149,13 +162,50 @@ def contact(request):
     return render(request, 'sitio_personal/contacto.html', {'form': form})
 
 def detalle_articulo(request, articulo_id):
+    """
+    Vista para mostrar los detalles de un artículo.
+
+    Obtiene el artículo según su ID y renderiza la plantilla con la información
+    del artículo y sus comentarios.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+        articulo_id (int): El ID del artículo a mostrar.
+
+    Retorna:
+        HttpResponse: La respuesta HTTP renderizada.
+    """
     articulo = get_object_or_404(Articulo, pk=articulo_id)
     return render(request, 'sitio_personal/detalle_articulo.html', {'articulo': articulo})
 
 def contact_success(request):
+    """
+    Vista para mostrar la confirmación de contacto exitoso.
+
+    Renderiza la plantilla de confirmación de contacto exitoso.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+
+    Retorna:
+        HttpResponse: La respuesta HTTP renderizada.
+    """
     return render(request, 'contact_success.html')
 
 def detalle_articulo(request, articulo_id):
+    """
+    Vista para mostrar los detalles de un artículo y manejar comentarios.
+
+    Obtiene el artículo según su ID, muestra sus detalles y permite a los usuarios
+    dejar comentarios en el artículo.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+        articulo_id (int): El ID del artículo a mostrar y comentar.
+
+    Retorna:
+        HttpResponse: La respuesta HTTP renderizada.
+    """
     articulo = get_object_or_404(Articulo, id=articulo_id)
     comentarios = articulo.comentarios.order_by('-fecha').filter(es_respuesta = False)
 
@@ -173,6 +223,18 @@ def detalle_articulo(request, articulo_id):
 
 @login_required
 def like_article(request, article_id):
+    """
+    Vista para gestionar los 'me gusta' en un artículo.
+
+    Permite a los usuarios autenticados dar o quitar 'me gusta' a un artículo.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+        article_id (int): El ID del artículo al que se aplica el 'me gusta'.
+
+    Retorna:
+        HttpResponseRedirect: La respuesta HTTP de redirección.
+    """
     articulo = get_object_or_404(Articulo, id=article_id)
     user = request.user
 
@@ -185,6 +247,18 @@ def like_article(request, article_id):
     return redirect('detalle_articulo', article_id=article_id)
 
 def suscribirse(request):
+    """
+    Vista para manejar el formulario de suscripción.
+
+    Permite a los usuarios suscribirse al blog. Si el formulario es válido,
+    crea una nueva suscripción en la base de datos y envía un correo de bienvenida.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+
+    Retorna:
+        HttpResponse: La respuesta HTTP renderizada.
+    """
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
         if form.is_valid():
@@ -201,9 +275,32 @@ def suscribirse(request):
     return render(request, 'sitio_personal/suscribirse.html', {'form': form})
 
 def suscripcion_exitosa(request):
+    """
+    Vista para mostrar la confirmación de suscripción exitosa.
+
+    Renderiza la plantilla de confirmación de suscripción exitosa.
+
+    Parámetros:
+        request (HttpRequest): La solicitud HTTP recibida.
+
+    Retorna:
+        HttpResponse: La respuesta HTTP renderizada.
+    """
     return render(request, 'sitio_personal/suscripcion_exitosa.html')
 
 def enviar_correo_bienvenida(email, nombre):
+    """
+    Función para enviar un correo de bienvenida a un nuevo suscriptor.
+
+    Envía un correo electrónico de bienvenida al nuevo suscriptor del blog.
+
+    Parámetros:
+        email (str): La dirección de correo electrónico del nuevo suscriptor.
+        nombre (str): El nombre del nuevo suscriptor.
+
+    Retorna:
+        None
+    """
     subject = 'Bienvenido a mi Blog'
     message = f'Hola {nombre},\n\nGracias por suscribirte a mi blog. ¡Saludos!'
     from_email = settings.DEFAULT_FROM_EMAIL

@@ -228,3 +228,13 @@ body{
     background-color: #4b7285;
     
 }
+
+.boton_contacto{
+    background-color: #ffffff;
+    color: #000;
+    border-radius: 0.5rem;
+}
+
+.boton_contacto:hover{
+    background-color: #cecdcd;
+}

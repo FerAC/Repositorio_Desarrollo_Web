@@ -10,7 +10,7 @@ def enviar_notificacion_nuevo_articulo(sender, instance, created, **kwargs):
     print("------------------------------------------ENTRA A SENAL")
     if created:
         # Obtener todas las suscripciones que deseen recibir notificaciones
-        suscripciones = Suscripcion.objects.filter(recibir_notificaciones=True)
+        suscripciones = Suscripcion.objects.filter(recibir_notificaciones=True) 
         for suscripcion in suscripciones:
             enviar_correo_notificacion(suscripcion, instance)
 

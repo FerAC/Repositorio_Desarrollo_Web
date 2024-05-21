@@ -1,15 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
-from .models import Articulo, Etiqueta, Comentario
+from .models import Articulo, Etiqueta, Comentario, Suscripcion
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.urls import reverse
 from .forms import ContactForm
 from .forms import ComentarioForm
+from django.conf import settings
 
 def index(request):
     """
@@ -73,34 +73,6 @@ def articulos(request):
     etiquetas = Etiqueta.objects.all()
     return render(request, 'sitio_personal/listar_articulos.html', {'articulos': articulos, 'etiquetas': etiquetas})
 
-def subscribe(request):
-    """
-    Vista para gestionar suscripciones por correo electrónico.
-
-    Parámetros:
-        request (HttpRequest): El objeto de la solicitud HTTP.
-
-    Retorna:
-        HttpResponse: La respuesta HTTP con el formulario de suscripción o una confirmación de éxito.
-    """
-    if request.method == 'POST':
-        form = SubscriptionForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            nombre = form.cleaned_data['nombre']
-            frecuencia = form.cleaned_data['frecuencia']
-            
-            send_mail(
-                'Bienvenido al Blog',
-                f'Hola {nombre}, gracias por suscribirte al blog. Estarás recibiendo actualizaciones {frecuencia}.',
-                'tu@email.com',
-                [email],
-                fail_silently=False,
-            )
-            return render(request, 'suscripcion_exitosa.html', {'nombre': nombre})
-    else:
-        form = SubscriptionForm()
-    return render(request, 'suscripcion.html', {'form': form})
 
 def listar_articulos(request):
     """
@@ -146,21 +118,35 @@ def listar_articulos(request):
 
 def contact(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        name = request.POST.get('name')
-        message = request.POST.get('message')
-        
-        send_mail(
-            'Nuevo mensaje de contacto',
-            f'Nombre: {name}\nEmail: {email}\nMensaje:\n{message}',
-            'fer17arce@gmail.com',  # Correo del remitente
-            ['fer17arce@gmail.com'],  # Correo del destinatario
-            fail_silently=False,
-        )
-        
-        return redirect(reverse('contact_success'))  # Utiliza reverse aquí
-        
-    return render(request, 'contact.html')
+        print("Se va a imprimir metodo")
+        print(request.method)
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            print("ENTRA A IF")
+            nombre = form.cleaned_data['nombre']
+            email = form.cleaned_data['email']
+            cuerpo = form.cleaned_data['cuerpo']
+
+            print("Se envia Email")
+            # Envío de correo
+            send_mail(
+                'Nuevo mensaje de contacto',
+                f'Nombre: {nombre}\nEmail: {email}\nMensaje:\n{cuerpo}',
+                'fer17arce@gmail.com',  # Correo del remitente
+                ['fer17arce@gmail.com'],  # Correo del destinatario
+                fail_silently=False,
+            )
+            print("Se envio Email")
+            # Guardar el mensaje de contacto en la base de datos
+            mensaje_contacto = form.save()
+            
+            return render(request, 'sitio_personal/contacto_exitoso.html')
+        print("------------------------------------------------")
+        print(form.errors)
+    else:
+        print("Entra a else")
+        form = ContactForm()
+    return render(request, 'sitio_personal/contacto.html', {'form': form})
 
 def detalle_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, pk=articulo_id)
@@ -197,4 +183,30 @@ def like_article(request, article_id):
         articulo.likes.add(user)
 
     return redirect('detalle_articulo', article_id=article_id)
+
+def suscribirse(request):
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            Suscripcion.objects.create(
+                email=form.cleaned_data['email'],
+                nombre=form.cleaned_data['nombre'],
+                frecuencia=form.cleaned_data['frecuencia']
+            )
+            enviar_correo_bienvenida(form.cleaned_data['email'], form.cleaned_data['nombre'])
+            return redirect('suscripcion_exitosa')
+    else:
+        form = SubscriptionForm()
+    return render(request, 'sitio_personal/suscribirse.html', {'form': form})
+
+def suscripcion_exitosa(request):
+    return render(request, 'sitio_personal/suscripcion_exitosa.html')
+
+def enviar_correo_bienvenida(email, nombre):
+    subject = 'Bienvenido a nuestro Blog'
+    message = f'Hola {nombre},\n\nGracias por suscribirte a mi blog. ¡Saludos!'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [email]
+    send_mail(subject, message, from_email, recipient_list)
+
 

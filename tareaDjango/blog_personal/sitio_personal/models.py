@@ -82,3 +82,22 @@ class Comentario(models.Model):
 
     def is_reply(self):
         return self.parent is not None
+    
+
+class Suscripcion(models.Model):
+    email = models.EmailField()
+    nombre = models.CharField(max_length=100)
+    frecuencia = models.CharField(max_length=10, choices=[('diario', 'Diario'), ('semanal', 'Semanal'), ('mensual', 'Mensual')])
+    fecha_suscripcion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.nombre} ({self.email})'
+    
+class MensajeContacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField()
+    cuerpo = models.TextField()
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Mensaje de {self.nombre} ({self.email})'

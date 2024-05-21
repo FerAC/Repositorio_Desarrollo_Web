@@ -1,16 +1,23 @@
 from django import forms
-from .models import Comentario
+from .models import Comentario, MensajeContacto
 
 class SubscriptionForm(forms.Form):
-    email = forms.EmailField(label='Correo Electronico')
+    email = forms.EmailField(label='Correo Electrónico')
     nombre = forms.CharField(label='Nombre')
-    frecuencia = forms.ChoiceField(choices=[('diario', 'Diario'), ('semanal', 'Semanal'), ('mensual', 'Mensual')],
-                                   label='Frecuencia de Interaccion')
+    frecuencia = forms.ChoiceField(
+        choices=[('diario', 'Diario'), ('semanal', 'Semanal'), ('mensual', 'Mensual')],
+        label='Frecuencia de Interacción'
+    )
 
-class ContactForm(forms.Form):
-    email = forms.EmailField(label='Correo electronico', max_length=100)
-    name = forms.CharField(label='Nombre', max_length=100)
-    message = forms.CharField(label='Mensaje', widget=forms.Textarea)
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = MensajeContacto
+        fields = ['nombre', 'email', 'cuerpo']
+        labels = {
+            'nombre': 'Nombre',
+            'email': 'Correo Electrónico',
+            'cuerpo': 'Mensaje'
+        }
 
 
 class ComentarioForm(forms.ModelForm):

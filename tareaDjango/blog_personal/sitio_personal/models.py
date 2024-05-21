@@ -150,3 +150,4 @@ class MensajeContacto(models.Model):
 
     def __str__(self):
         return f'Mensaje de {self.nombre} ({self.email})'
+

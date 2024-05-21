@@ -308,3 +308,5 @@ def enviar_correo_bienvenida(email, nombre):
     send_mail(subject, message, from_email, recipient_list)
 
 
+
+

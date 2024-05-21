@@ -1,8 +1,9 @@
-pip install django
-pip install djangorestframework 
-pip install django-celery-beat 
-pip install pillow  
-pip install mysqlclient  
-pip install pytest
-pip install pytest-django
-pip install requests
+Django==3.2.5
+djangorestframework==3.12.4
+django-celery-beat==2.2.0
+Pillow==8.2.0
+psycopg2-binary==2.8.6
+mysqlclient==2.0.3
+pytest==6.2.4
+pytest-django==4.4.0
+requests==2.25.1

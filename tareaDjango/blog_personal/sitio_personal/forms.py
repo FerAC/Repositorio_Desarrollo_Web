@@ -8,6 +8,7 @@ class SubscriptionForm(forms.Form):
         choices=[('diario', 'Diario'), ('semanal', 'Semanal'), ('mensual', 'Mensual')],
         label='Frecuencia de Interacción'
     )
+    recibir_notificaciones = forms.BooleanField(label='Recibir notificaciones de nuevos artículos', required=False)
 
 class ContactForm(forms.ModelForm):
     class Meta:

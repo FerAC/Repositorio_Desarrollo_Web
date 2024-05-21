@@ -88,6 +88,7 @@ class Suscripcion(models.Model):
     email = models.EmailField()
     nombre = models.CharField(max_length=100)
     frecuencia = models.CharField(max_length=10, choices=[('diario', 'Diario'), ('semanal', 'Semanal'), ('mensual', 'Mensual')])
+    recibir_notificaciones = models.BooleanField(default=False)
     fecha_suscripcion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

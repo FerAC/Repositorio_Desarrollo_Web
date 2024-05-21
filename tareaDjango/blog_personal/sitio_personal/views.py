@@ -188,10 +188,11 @@ def suscribirse(request):
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
         if form.is_valid():
-            Suscripcion.objects.create(
+            suscripcion = Suscripcion.objects.create(
                 email=form.cleaned_data['email'],
                 nombre=form.cleaned_data['nombre'],
-                frecuencia=form.cleaned_data['frecuencia']
+                frecuencia=form.cleaned_data['frecuencia'],
+                recibir_notificaciones=form.cleaned_data['recibir_notificaciones']
             )
             enviar_correo_bienvenida(form.cleaned_data['email'], form.cleaned_data['nombre'])
             return redirect('suscripcion_exitosa')
@@ -203,7 +204,7 @@ def suscripcion_exitosa(request):
     return render(request, 'sitio_personal/suscripcion_exitosa.html')
 
 def enviar_correo_bienvenida(email, nombre):
-    subject = 'Bienvenido a nuestro Blog'
+    subject = 'Bienvenido a mi Blog'
     message = f'Hola {nombre},\n\nGracias por suscribirte a mi blog. ¡Saludos!'
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient_list = [email]

@@ -1,7 +1,8 @@
 from django.urls import path
 from sitio_personal import views
 from django.contrib import admin
-
+from django.urls import path, include
+from django.shortcuts import redirect
 
 """
 URL patterns para la aplicación sitio_personal.
@@ -11,6 +12,8 @@ Este módulo define las rutas URL y las vistas correspondientes para la aplicaci
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/login/', lambda request: redirect('socialaccount_login', 'google')),
     path('blog/', views.blog, name='blog'),
     path('resume/', views.resume, name='resume'),
     path('about/', views.about, name='about'),

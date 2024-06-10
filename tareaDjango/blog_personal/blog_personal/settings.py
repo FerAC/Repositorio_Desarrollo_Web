@@ -45,7 +45,39 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sitio_personal',
     'django_celery_beat',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '1331500618-v2of2bgat480i4bmq2964jahfcodnatn.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
+
+LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'sitio_personal', 'static'),
 ]
@@ -57,7 +89,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'blog_personal.urls'
 FILE_CHARSET = 'utf-8'

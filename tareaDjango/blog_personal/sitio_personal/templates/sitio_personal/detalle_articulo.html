@@ -149,7 +149,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.like-comentario-button').forEach(button => {
@@ -168,22 +167,19 @@
                 });
             });
         });
-    });
-    document.addEventListener('DOMContentLoaded', function() {
+
         document.querySelector('.like-button').addEventListener('click', function(event) {
             event.preventDefault();
             const articleId = this.getAttribute('data-id');
-            
+
             fetch(`/articulo/${articleId}/like/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}',
                     'Content-Type': 'application/json',
                 },
-            }).then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                }
+            }).then(response => response.json()).then(data => {
+                document.querySelector('.like-button').innerHTML = `<i class="fas fa-heart"></i> ${data.total_likes}`;
             });
         });
     });

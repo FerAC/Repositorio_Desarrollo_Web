@@ -248,15 +248,13 @@ def like_article(request, article_id):
         HttpResponseRedirect: La respuesta HTTP de redirección.
     """
     articulo = get_object_or_404(Articulo, id=article_id)
-    user = request.user
-
-    # Verificar si el usuario ya le dio 'me gusta' al artículo
-    if articulo.likes.filter(id=user.id).exists():
-        articulo.likes.remove(user)
+    if articulo.likes.filter(id=request.user.id).exists():
+        articulo.likes.remove(request.user)
+        liked = False
     else:
-        articulo.likes.add(user)
-
-    return redirect('detalle_articulo', article_id=article_id)
+        articulo.likes.add(request.user)
+        liked = True
+    return JsonResponse({'total_likes': articulo.total_likes(), 'liked': liked})
 
 @login_required
 def eliminar_comentario(request, comentario_id):
@@ -278,7 +276,7 @@ def like_comentario(request, comentario_id):
     else:
         comentario.likes.add(request.user)
         liked = True
-    return JsonResponse({'likes': comentario.likes(),'liked': liked})
+    return JsonResponse({'total_likes': comentario.total_likes(),'liked': liked})
 
 def suscribirse(request):
     """

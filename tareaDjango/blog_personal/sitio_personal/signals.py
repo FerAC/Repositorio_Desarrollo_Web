@@ -2,17 +2,26 @@ from django.apps import AppConfig
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
-from django.db.models.signals import post_migrate
+from django.db.models.signals import post_migrate, pre_delete
 from django.conf import settings
 from .models import Articulo, Suscripcion, Comentario
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-
+from .models import UserActionLog
 class SitioPersonalConfig(AppConfig):
     name = 'sitio_personal'
 
     def ready(self):
         post_migrate.connect(create_groups_and_permissions, sender=self)
+@receiver(post_save, sender=Articulo)
+def log_articulo_creation(sender, instance, created, **kwargs):
+    if created:
+        UserActionLog.objects.create(user=instance.usuario, action='create_post', description=f'Usuario {instance.usuario.username} creó el post "{instance.titulo}"')
+
+
+@receiver(pre_delete, sender=Articulo)
+def log_articulo_deletion(sender, instance, **kwargs):
+    UserActionLog.objects.create(user=instance.usuario, action='delete_post', description=f'Usuario {instance.usuario.username} borró el post "{instance.titulo}"')
 
 @receiver(post_migrate)
 def create_groups_and_permissions(sender, **kwargs):

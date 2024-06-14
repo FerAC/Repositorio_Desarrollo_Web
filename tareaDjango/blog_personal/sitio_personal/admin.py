@@ -5,6 +5,13 @@ from .models import Comentario
 from .models import MensajeContacto
 from .models import Suscripcion
 from django_celery_beat.models import PeriodicTask
+from .models import UserActionLog
+
+@admin.register(UserActionLog)
+class UserActionLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'action', 'timestamp', 'description')
+    list_filter = ('action', 'timestamp')
+    search_fields = ('user__username', 'description')
 
 class ComentarioInline(admin.TabularInline):
     model = Comentario

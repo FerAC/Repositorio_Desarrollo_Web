@@ -13,6 +13,8 @@ from .forms import ComentarioForm
 from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
+from django.contrib.auth import login, logout
+from .models import UserActionLog
 
 def index(request):
     """
@@ -25,6 +27,16 @@ def index(request):
         HttpResponse: La respuesta HTTP con el contenido de la página principal.
     """
     return render(request, 'sitio_personal/index.html')
+
+def custom_login(request, *args, **kwargs):
+    response = login(request, *args, **kwargs)
+    UserActionLog.objects.create(user=request.user, action='login', description='Usuario inició sesión')
+    return response
+
+def custom_logout(request, *args, **kwargs):
+    UserActionLog.objects.create(user=request.user, action='logout', description='Usuario cerró sesión')
+    response = logout(request, *args, **kwargs)
+    return response
 
 def blog(request):
     """
@@ -217,7 +229,8 @@ def detalle_articulo(request, articulo_id):
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.articulo = articulo
-            comentario.usuario = request.user  # Asigna el usuario autenticado al comentario
+            comentario.usuario = request.user
+            UserActionLog.objects.create(user=request.user, action='comment', description=f'Usuario comentó en el artículo {articulo_id}')
             comentario.save()
             return redirect('detalle_articulo', articulo_id=articulo.id)
     else:
@@ -250,9 +263,11 @@ def like_article(request, article_id):
     articulo = get_object_or_404(Articulo, id=article_id)
     if articulo.likes.filter(id=request.user.id).exists():
         articulo.likes.remove(request.user)
+        UserActionLog.objects.create(user=request.user, action='dislike', description=f'Usuario hizo dislike en el artículo {article_id}')
         liked = False
     else:
         articulo.likes.add(request.user)
+        UserActionLog.objects.create(user=request.user, action='like', description=f'Usuario hizo like en el artículo {article_id}')
         liked = True
     return JsonResponse({'total_likes': articulo.total_likes(), 'liked': liked})
 
@@ -263,6 +278,7 @@ def eliminar_comentario(request, comentario_id):
     # Verificar si el usuario tiene permiso para eliminar el comentario
     if request.user == comentario.usuario or request.user.has_perm('sitio_personal.delete_comentario'):
         comentario.delete()
+        UserActionLog.objects.create(user=request.user, action='delete_comment', description=f'Usuario eliminó el comentario {comentario_id}')
         return redirect('detalle_articulo', articulo_id=articulo_id)
     else:
         return HttpResponseForbidden("No tienes permiso para eliminar este comentario.")
@@ -272,9 +288,11 @@ def like_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, id=comentario_id)
     if comentario.likes.filter(id=request.user.id).exists():
         comentario.likes.remove(request.user)
+        UserActionLog.objects.create(user=request.user, action='dislike', description=f'Usuario hizo dislike en el comentario {comentario_id}')
         liked = False
     else:
         comentario.likes.add(request.user)
+        UserActionLog.objects.create(user=request.user, action='like', description=f'Usuario hizo like en el comentario {comentario_id}')
         liked = True
     return JsonResponse({'total_likes': comentario.total_likes(),'liked': liked})
 
@@ -318,6 +336,7 @@ def suscripcion_exitosa(request):
     Retorna:
         HttpResponse: La respuesta HTTP renderizada.
     """
+    UserActionLog.objects.create(user=request.user, action='subscribe', description='Usuario se suscribió')
     return render(request, 'sitio_personal/suscripcion_exitosa.html')
 
 def enviar_correo_bienvenida(email, nombre):

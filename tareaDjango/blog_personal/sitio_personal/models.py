@@ -42,6 +42,7 @@ class Articulo(models.Model):
     thumbnail = models.ImageField(upload_to='sitio_personal/static/img/thumbnails', null=True, blank=True)
     preview = models.TextField(null=True, blank=True)
     tiempo_lectura = models.IntegerField(default=5)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def thumbnail_name(self):
         """
@@ -159,3 +160,24 @@ class MensajeContacto(models.Model):
     def __str__(self):
         return f'Mensaje de {self.nombre} ({self.email})'
 
+class UserActionLog(models.Model):
+    ACTION_CHOICES = [
+        ('login', 'Iniciar sesión'),
+        ('logout', 'Cerrar sesión'),
+        ('like', 'Like a un post o comentario'),
+        ('dislike', 'Dislike a un post o comentario'),
+        ('comment', 'Realización de un comentario'),
+        ('delete_comment', 'Eliminación de un comentario'),
+        ('create_post', 'Creación de un post'),
+        ('delete_post', 'Eliminación de un post'),
+        ('subscribe', 'Suscripción'),
+        ('unsubscribe', 'Retiro de la suscripción'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    action = models.CharField(max_length=20, choices=ACTION_CHOICES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.get_action_display()} - {self.timestamp}'

@@ -4,14 +4,13 @@
 <div class="container-xxl articulo_encabezado">
     <h1 style="color: #3B6275; font-size: 50px;">{{ articulo.titulo }}</h1>
     <div class="col">
-        {% comment %} <img src="../../static/img/{{ articulo.thumbnail_name }}" alt="{{ articulo.thumbnail_name }}"> {% endcomment %}
+        <!-- Imagen del artículo -->
     </div>
     <h4>Autor: Fernando Arce Castillo</h4>
     <h4>
-        <a href="#" class="like-button" data-id="{{ articulo.id }}">
+        <a href="#" class="like-button" style="text-decoration: none;" data-id="{{ articulo.id }}">
             <i class="fas fa-heart"></i> {{ articulo.total_likes }}
         </a>
-        
     </h4>
 </div>
 
@@ -26,10 +25,6 @@
     <h3><br />Contenido </h3>
     <p>{{ articulo.contenido|linebreaks }}</p>
 
-    <!-- Botón para abrir el modal de comentarios -->
-    
-
-    <!-- Modal -->
     <div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -57,8 +52,17 @@
     <div class="lista_comentarios mb-4">
         {% for comentario in comentarios %}
             <div class="comentario">
-                <h5>{{ comentario.nombre }} <small>{{ comentario.fecha|date:"d M Y H:i" }}</small></h4>
+                <h5>{{ comentario.usuario.username }} <small>{{ comentario.fecha|date:"d M Y H:i" }}</small></h5>
                 <p>{{ comentario.cuerpo|linebreaks }}</p>
+                
+                    <form method="post" action="{% url 'eliminar_comentario' comentario.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                
+                <button class="btn btn-primary like-comentario-button" data-id="{{ comentario.id }}">
+                    <i class="fas fa-thumbs-up"></i> <span id="like-count-{{ comentario.id }}">{{ comentario.total_likes }}</span>
+                </button>
                 {% if comentario.respuestas.all %}
                 <div class="accordion accordion-flush" id="accordionExample">
                     <div class="accordion-item">
@@ -73,7 +77,7 @@
                                 <div class="respuestas">
                                     {% for respuesta in comentario.respuestas.all %}
                                     <div class="respuesta">
-                                        <h5>{{ respuesta.nombre }} <small>{{ respuesta.fecha|date:"d M Y H:i" }}</small></h5>
+                                        <h5>{{ respuesta.usuario.username }} <small>{{ respuesta.fecha|date:"d M Y H:i" }}</small></h5>
                                         <p>{{ respuesta.cuerpo|linebreaks }}</p>
                                     </div>
                                     {% endfor %}
@@ -82,7 +86,6 @@
                         </div>
                     </div>
                 </div>
-                
                 {% endif %}
             </div>
             <hr>
@@ -122,7 +125,6 @@
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-       
             <div class="modal-header">
                 <h5 class="modal-title" id="contactModalLabel">Contactarme</h5>
             </div>
@@ -147,7 +149,26 @@
         </div>
     </div>
 </div>
+
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.like-comentario-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const comentarioId = this.getAttribute('data-id');
+
+                fetch(`/comentario/${comentarioId}/like/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                    },
+                }).then(response => response.json()).then(data => {
+                    document.getElementById(`like-count-${comentarioId}`).innerText = data.total_likes;
+                });
+            });
+        });
+    });
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.like-button').addEventListener('click', function(event) {
             event.preventDefault();
@@ -166,5 +187,5 @@
             });
         });
     });
-    </script>
+</script>
 {% endblock %}

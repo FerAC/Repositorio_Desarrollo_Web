@@ -1,10 +1,53 @@
+from django.apps import AppConfig
+from django.db.models.signals import post_migrate
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.dispatch import receiver
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Suscripcion, Articulo
 from django.utils import timezone
 from datetime import timedelta
+from .models import Articulo, Comentario
 
+class SitioPersonalConfig(AppConfig):
+    name = 'sitio_personal'
+
+    def ready(self):
+        post_migrate.connect(create_groups_and_permissions, sender=self)
+
+@receiver(post_migrate)
+def create_groups_and_permissions(sender, **kwargs):
+    admin_group, created = Group.objects.get_or_create(name='Administrador')
+    subscriber_group, created = Group.objects.get_or_create(name='Suscriptor')
+    moderator_group, created = Group.objects.get_or_create(name='Moderador')
+
+    content_type_articulo = ContentType.objects.get_for_model(Articulo)
+    content_type_comentario = ContentType.objects.get_for_model(Comentario)
+
+    # Permisos para Administrador
+    permisos_admin = Permission.objects.filter(content_type__in=[content_type_articulo, content_type_comentario])
+    admin_group.permissions.set(permisos_admin)
+
+    # Permisos para Suscriptor
+    permisos_suscriptor = [
+        Permission.objects.get(codename='add_comentario', content_type=content_type_comentario),
+        Permission.objects.get(codename='change_comentario', content_type=content_type_comentario),
+        Permission.objects.get(codename='delete_comentario', content_type=content_type_comentario),
+        Permission.objects.get(codename='view_comentario', content_type=content_type_comentario),
+        # Añade permisos para likes y dislikes si los tienes
+    ]
+    subscriber_group.permissions.set(permisos_suscriptor)
+
+    # Permisos para Moderador
+    permisos_moderador = [
+        Permission.objects.get(codename='delete_comentario', content_type=content_type_comentario),
+        Permission.objects.get(codename='change_comentario', content_type=content_type_comentario),
+        Permission.objects.get(codename='view_comentario', content_type=content_type_comentario),
+    ]
+    moderator_group.permissions.set(permisos_moderador)
+    
 @shared_task
 def enviar_boletin_diario():
     """

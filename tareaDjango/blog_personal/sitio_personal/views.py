@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from .forms import SubscriptionForm
 from django.core.mail import send_mail
 from django.views.generic import ListView
@@ -10,6 +11,8 @@ from django.urls import reverse
 from .forms import ContactForm
 from .forms import ComentarioForm
 from django.conf import settings
+from django.http import HttpResponseForbidden
+from django.http import JsonResponse
 
 def index(request):
     """
@@ -192,6 +195,7 @@ def contact_success(request):
     """
     return render(request, 'contact_success.html')
 
+@login_required
 def detalle_articulo(request, articulo_id):
     """
     Vista para mostrar los detalles de un artículo y manejar comentarios.
@@ -207,19 +211,27 @@ def detalle_articulo(request, articulo_id):
         HttpResponse: La respuesta HTTP renderizada.
     """
     articulo = get_object_or_404(Articulo, id=articulo_id)
-    comentarios = articulo.comentarios.order_by('-fecha').filter(es_respuesta = False)
-
+    comentarios = articulo.comentarios.order_by('-fecha').filter(es_respuesta=False)
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.articulo = articulo
+            comentario.usuario = request.user  # Asigna el usuario autenticado al comentario
             comentario.save()
             return redirect('detalle_articulo', articulo_id=articulo.id)
     else:
         form = ComentarioForm()
 
-    return render(request, 'sitio_personal/detalle_articulo.html', {'articulo': articulo, 'comentarios': comentarios, 'form': form})
+    puede_eliminar_comentario = request.user.has_perm('sitio_personal.delete_comentario')
+
+    return render(request, 'sitio_personal/detalle_articulo.html', {
+        'articulo': articulo,
+        'comentarios': comentarios,
+        'form': form,
+        'puede_eliminar_comentario': puede_eliminar_comentario,
+    })
+
 
 @login_required
 def like_article(request, article_id):
@@ -245,6 +257,28 @@ def like_article(request, article_id):
         articulo.likes.add(user)
 
     return redirect('detalle_articulo', article_id=article_id)
+
+@login_required
+def eliminar_comentario(request, comentario_id):
+    comentario = get_object_or_404(Comentario, id=comentario_id)
+    articulo_id = comentario.articulo.id
+    # Verificar si el usuario tiene permiso para eliminar el comentario
+    if request.user == comentario.usuario or request.user.has_perm('sitio_personal.delete_comentario'):
+        comentario.delete()
+        return redirect('detalle_articulo', articulo_id=articulo_id)
+    else:
+        return HttpResponseForbidden("No tienes permiso para eliminar este comentario.")
+
+@login_required
+def like_comentario(request, comentario_id):
+    comentario = get_object_or_404(Comentario, id=comentario_id)
+    if comentario.likes.filter(id=request.user.id).exists():
+        comentario.likes.remove(request.user)
+        liked = False
+    else:
+        comentario.likes.add(request.user)
+        liked = True
+    return JsonResponse({'likes': comentario.likes(),'liked': liked})
 
 def suscribirse(request):
     """

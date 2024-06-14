@@ -80,13 +80,21 @@ class Comentario(models.Model):
     """
     articulo = models.ForeignKey(Articulo, related_name='comentarios', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     cuerpo = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='likes_coment', blank=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='respuestas', on_delete=models.CASCADE)
     es_respuesta = models.BooleanField(default=False)
     
+    def total_likes(self):
+        return self.likes.count()
+    
     class Meta:
         ordering = ['-fecha']
+        permissions = [
+            ("highlight_comment", "Can highlight comment"),
+        ]
 
     def __str__(self):
         """
